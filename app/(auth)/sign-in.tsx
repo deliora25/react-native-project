@@ -46,10 +46,10 @@ const SignInScreen = ({ handleSubmit }: Props) => {
           />
           <Text style={styles.title}>Log in to Informed Medical</Text>
           <FormField
-            title="Email"
+            title="Username or Email"
             value={form.email}
             handleChangeText={handleChangeEmail}
-            placeholder="Enter Email"
+            placeholder="Enter Username or Email"
             customClass={styles.formFieldMargin}
           />
           <FormField
