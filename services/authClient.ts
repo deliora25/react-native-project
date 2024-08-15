@@ -5,7 +5,7 @@ import {
   setTokens,
   clearTokens,
 } from "./asyncStorage"; // Use AsyncStorage instead of localStorage
-import { BASE_URL } from "@/constants/api";
+import { BASE_URL } from "@/app/constants/api";
 
 // Create an Axios instance
 const authClient = axios.create({

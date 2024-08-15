@@ -1,6 +1,6 @@
-import { JobTitles } from "@/constants/jobTitles";
+import { JobTitles } from "@/app/constants/jobTitles";
 import { FeatureDto } from "./feature";
-import { USER_TYPE } from "@/constants/userTypes";
+import { USER_TYPE } from "@/app/constants/userTypes";
 
 export interface MenuLink {
   id: string;

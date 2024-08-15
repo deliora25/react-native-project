@@ -8,9 +8,9 @@ import {
   StyleSheet,
 } from "react-native";
 import { Link, router } from "expo-router";
-import { images } from "@/constants";
-import FormField from "@/components/FormField";
-import CustomButton from "@/components/CustomButton";
+import images from "../constants/images";
+import FormField from "../components/FormField";
+import CustomButton from "../components/CustomButton";
 
 interface Props {
   handleSubmit: () => void;

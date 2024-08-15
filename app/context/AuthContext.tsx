@@ -1,8 +1,4 @@
 import { createContext, useReducer, FC, PropsWithChildren } from "react";
-
-import guestClient from "../services/guestClient";
-import authClient from "../services/authClient";
-
 import {
   ADD_USER,
   SET_USER_LOADING,
@@ -18,16 +14,18 @@ import {
 import reducer from "./auth/reducer";
 import { SignInParams } from "./auth/types";
 import { initialState } from "./auth/initialState";
-import { User } from "@/types/model/user";
-import { isClientStaff, isInformedStaff } from "@/utils/permissions";
 import {
   clearSyncPccValues,
   clearTokens,
   getRefreshToken,
   setTokens,
 } from "@/services/asyncStorage";
-import { API_VERSION } from "@/constants/api";
-import { RequestExceptionError } from "@/types/common/api";
+import { API_VERSION } from "@/app/constants/api";
+import { isClientStaff, isInformedStaff } from "../utils/permissions";
+import { User } from "../types/model/user";
+import authClient from "@/services/authClient";
+import { RequestExceptionError } from "../types/common/api";
+import guestClient from "@/services/guestClient";
 
 export const Context = createContext(initialState);
 
@@ -141,27 +139,28 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
     handleSetIsAuthenticated({ isAuthenticated: false });
 
     try {
-      const refreshToken = getRefreshToken();
-      removeUser();
-      clearTokens();
-      clearSyncPccValues();
+      const refreshToken = await getRefreshToken();
 
       if (!refreshToken) {
         return;
       }
 
+      removeUser();
+      clearTokens();
+      clearSyncPccValues();
+
       const res = await authClient.post("/auth/token/revoke", {
         refreshToken,
       });
+
       const { status } = res || {};
       if (status === 200) {
         return;
       }
-      // eslint-disable-next-line no-console
+
       console.error(`An error occurred while trying to logout.`);
     } catch (e) {
       clearTokens();
-      // eslint-disable-next-line no-console
       console.error(
         `An error occurred while trying to logout. exception ${JSON.stringify(
           e
@@ -169,6 +168,7 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
       );
     }
   };
+
   const signIn = async ({
     userName,
     password,
@@ -265,6 +265,7 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
         setUserName,
         signIn,
         signOut,
+        setLoadingUser,
       }}
     >
       {children}

@@ -8,10 +8,21 @@ import {
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native";
-import useAuth from "@/hooks/useAuth";
-import Card from "@/components/Card";
 import { Href, router } from "expo-router";
-import { images } from "@/constants";
+import { FacilityTypeCode } from "@/app/constants";
+
+import images from "../constants/images";
+import { useAuth, useUserFacilities } from "../hooks";
+import {
+  usePermissionAutoInformSettings,
+  usePermissionAutoIso,
+} from "../hooks/permissions";
+import DocumentLibraryCard from "../components/documentLibrary/DocumentLibraryCard";
+import CustomCard from "../components/Card";
+import {
+  AUTOMATIC_REPORTS_PATH,
+  ESSENTIAL_DOCUMENTS_PATH,
+} from "../constants/routes";
 
 const styles = StyleSheet.create({
   welcomeText: { fontSize: 24, lineHeight: 32, color: "white" },
@@ -33,10 +44,22 @@ const styles = StyleSheet.create({
 const Home = () => {
   const auth = useAuth();
   const { menuLinks, user, getUser, loadingUser } = auth || {};
-  const { userName } = user || {};
+  const { firstName } = user || {};
+  const { selectedFacilityData } = useUserFacilities();
+  const { facilityTypeCode } = selectedFacilityData || {};
+  const { permittedViewAutoIso } = usePermissionAutoIso();
+  const { canViewAutoInformSettings } = usePermissionAutoInformSettings();
 
   const onCardPress = (route: string) => {
     router.push(route as Href<string>);
+  };
+
+  const handlePressAutomaticReports = () => {
+    router.push(AUTOMATIC_REPORTS_PATH as Href<string>);
+  };
+
+  const handlePressEssentialDocuments = () => {
+    router.push(ESSENTIAL_DOCUMENTS_PATH as Href<string>);
   };
 
   const onRefresh = async () => {
@@ -50,20 +73,62 @@ const Home = () => {
         data={menuLinks}
         keyExtractor={(item) => item.id}
         //how the data will be rendered
-        renderItem={({ item }) => (
-          <Card
-            title={item.label}
-            onPress={() => onCardPress(item.route)}
-            key={item.id}
-          />
-        )}
+        renderItem={({ item }) => {
+          if (
+            item.label === "Your Account" ||
+            item.label === "Access Request Center"
+          ) {
+            return null;
+          }
+
+          if (item.label === "Document Library") {
+            let clientStaffDocumentLibraryLabel = "Document Library";
+            if (facilityTypeCode === FacilityTypeCode.SNF) {
+              clientStaffDocumentLibraryLabel = "SNF Library";
+            }
+            if (facilityTypeCode === FacilityTypeCode.ALF) {
+              clientStaffDocumentLibraryLabel = "ALF Library";
+            }
+            return (
+              <React.Fragment key={item.id}>
+                <DocumentLibraryCard
+                  onCardPress={onCardPress}
+                  route={item.route}
+                  clientStaffDocumentLibraryLabel={
+                    clientStaffDocumentLibraryLabel
+                  }
+                />
+                {permittedViewAutoIso && (
+                  <CustomCard
+                    title="Automatic Reports"
+                    onPress={handlePressAutomaticReports}
+                  />
+                )}
+                {canViewAutoInformSettings && (
+                  <CustomCard
+                    title="Essential Documents"
+                    onPress={handlePressEssentialDocuments}
+                  />
+                )}
+              </React.Fragment>
+            );
+          }
+
+          return (
+            <CustomCard
+              title={item.label}
+              onPress={() => onCardPress(item.route)}
+              key={item.id}
+            />
+          );
+        }}
         //header for the list
         ListHeaderComponent={() => (
           <View style={styles.listHeaderContainer}>
             <View style={styles.listHeaderWelcomeTextContainer}>
               <View>
                 <Text style={styles.welcomeText}>Welcome!</Text>
-                <Text style={styles.welcomeText}>{userName}</Text>
+                <Text style={styles.welcomeText}>{firstName}</Text>
               </View>
               <View style={{ marginTop: 12 }}>
                 <Image

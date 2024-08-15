@@ -1,4 +1,4 @@
-import { MenuLink, User } from "@/types/model/user";
+import { MenuLink, User } from "@/app/types/model/user";
 import {
   // CONFIRM_AGREEMENT,
   ADD_USER,
@@ -54,6 +54,7 @@ export type State = {
   }) => void;
   userIsClientStaff?: boolean | null;
   userIsInformedStaff?: boolean | null;
+  setLoadingUser: ({ loading }: { loading: boolean }) => void;
 };
 
 export type Action =

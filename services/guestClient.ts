@@ -1,4 +1,4 @@
-import { PUBLIC_BASE_URL } from "@/constants/api";
+import { PUBLIC_BASE_URL } from "@/app/constants/api";
 import axios from "axios";
 
 const guestClient = axios.create({

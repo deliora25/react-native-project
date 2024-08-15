@@ -12,7 +12,7 @@ import {
   SET_IS_AUTHENTICATED,
 } from "./constants";
 import { initialState } from "./initialState";
-import { MenuLink, UserPermissionMenuLinksDto } from "@/types/model/user";
+import { MenuLink, UserPermissionMenuLinksDto } from "@/app/types/model/user";
 
 const authReducer = (state: State, action: Action) => {
   const { type } = action;
@@ -73,6 +73,7 @@ const authReducer = (state: State, action: Action) => {
         loginError: null,
         menuLinks: [],
         user: null,
+        isAuthenticated: false,
       };
     }
 

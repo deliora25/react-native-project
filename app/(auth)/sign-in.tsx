@@ -8,12 +8,12 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { Href, Link, router } from "expo-router";
-import { images } from "@/constants";
-import FormField from "@/components/FormField";
-import CustomButton from "@/components/CustomButton";
-import useAuth from "@/hooks/useAuth";
+import { Link, router } from "expo-router";
 import { FormValues } from "./types";
+import { useAuth } from "../hooks";
+import images from "../constants/images";
+import FormField from "../components/FormField";
+import CustomButton from "../components/CustomButton";
 
 const SignInScreen = () => {
   const [form, setForm] = useState({
@@ -22,19 +22,12 @@ const SignInScreen = () => {
   });
 
   const auth = useAuth();
-  const {
-    loginError: errorMessage,
-    loginLoading,
-    signIn,
-    resetLoginState,
-    getUser,
-  } = auth || {};
+  const { loginError: errorMessage, loginLoading, signIn } = auth || {};
 
   const baseUrlAndPath = `${Config.BASE_URL}${Config.PATH}`;
 
   const successCallback = () => {
-    console.log(`success`);
-    router.push("/home");
+    router.replace("/home");
   };
 
   // TODO: lacking authentication function
@@ -63,7 +56,7 @@ const SignInScreen = () => {
   };
 
   const handleCancelClick = () => {
-    router.back();
+    router.push("/");
   };
 
   return (
@@ -82,6 +75,7 @@ const SignInScreen = () => {
             handleChangeText={handleChangeEmail}
             placeholder="Enter Username "
             customClass={styles.formFieldMargin}
+            errorMessage={errorMessage || ""}
           />
           <FormField
             title="Password"
@@ -89,6 +83,7 @@ const SignInScreen = () => {
             handleChangeText={handleChangePassword}
             placeholder="Enter Password"
             customClass={styles.formFieldMargin}
+            errorMessage={errorMessage || ""}
           />
           <View style={styles.buttonContainer}>
             <CustomButton

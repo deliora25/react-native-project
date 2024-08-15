@@ -1,4 +1,4 @@
-import { State } from './types';
+import { State } from "./types";
 
 export const initialState: State = {
   user: null,
@@ -19,4 +19,5 @@ export const initialState: State = {
   signIn: () => {},
   signOut: () => {},
   handleSetIsAuthenticated: () => {},
+  setLoadingUser: () => {},
 };

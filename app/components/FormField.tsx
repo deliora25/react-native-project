@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ViewStyle,
 } from "react-native";
-import { icons } from "../constants";
+import icons from "../constants/icons";
 
 interface Props {
   customClass?: ViewStyle;
@@ -16,6 +16,7 @@ interface Props {
   value: string;
   placeholder: string;
   handleChangeText: (text: string) => void;
+  errorMessage?: string;
 }
 
 const FormField = ({
@@ -24,6 +25,7 @@ const FormField = ({
   placeholder,
   handleChangeText,
   customClass,
+  errorMessage,
 }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,6 +51,7 @@ const FormField = ({
           </TouchableOpacity>
         )}
       </View>
+      <Text style={styles.helperText}>{errorMessage}</Text>
     </View>
   );
 };
@@ -60,6 +63,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: "#f5f5f5",
+    paddingBottom: 2,
+    paddingLeft: 4,
   },
   inputContainer: {
     borderWidth: 2,
@@ -80,6 +85,13 @@ const styles = StyleSheet.create({
   icon: {
     height: 24,
     width: 24,
+  },
+  helperText: {
+    color: "orange",
+    fontStyle: "italic",
+    fontSize: 12,
+    paddingLeft: 8,
+    paddingTop: 2,
   },
 });
 

@@ -78,12 +78,11 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: "center",
     justifyContent: "center",
-    gap: 4, // replace 'gap-1' with 'gap: 4' equivalent in React Native
+    gap: 4,
   },
   iconText: {
-    fontSize: 12, // 'text-xs' in Tailwind is approximately 12px
+    fontSize: 12,
   },
-
   tabBar: {
     backgroundColor: "#161622",
     borderTopWidth: 1,
