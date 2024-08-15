@@ -1,0 +1,7 @@
+export enum USER_TYPE {
+  BASIC_USER = 6,
+  MANAGER = 4,
+  ADMINISTRATOR = 3,
+  INFORMED_USER = 2,
+  INFORMED_ADMIN = 1,
+}

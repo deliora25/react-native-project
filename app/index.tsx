@@ -1,7 +1,6 @@
 import { images } from "@/constants";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button } from "react-native-paper";
 import { router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
 

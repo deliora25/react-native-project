@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Config from "react-native-config";
 import {
   SafeAreaView,
   ScrollView,
@@ -7,24 +8,54 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { Link, router } from "expo-router";
+import { Href, Link, router } from "expo-router";
 import { images } from "@/constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
+import useAuth from "@/hooks/useAuth";
+import { FormValues } from "./types";
 
-interface Props {
-  handleSubmit: () => void;
-}
-
-const SignInScreen = ({ handleSubmit }: Props) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const SignInScreen = () => {
   const [form, setForm] = useState({
-    email: "",
+    userName: "",
     password: "",
   });
 
+  const auth = useAuth();
+  const {
+    loginError: errorMessage,
+    loginLoading,
+    signIn,
+    resetLoginState,
+    getUser,
+  } = auth || {};
+
+  const baseUrlAndPath = `${Config.BASE_URL}${Config.PATH}`;
+
+  const successCallback = () => {
+    console.log(`success`);
+    router.push("/home");
+  };
+
+  // TODO: lacking authentication function
+  const loginSuccessWithMFA = (accessToken: string, refreshToken: string) => {
+    console.log("loginSuccess");
+  };
+
+  const handleSubmit = async (values: FormValues) => {
+    const { userName, password } = values;
+
+    signIn({
+      userName,
+      redirectUri: baseUrlAndPath,
+      password,
+      successCallback,
+      loginSuccessWithMFA,
+    });
+  };
+
   const handleChangeEmail = (e: string) => {
-    setForm({ ...form, email: e });
+    setForm({ ...form, userName: e });
   };
 
   const handleChangePassword = (e: string) => {
@@ -46,10 +77,10 @@ const SignInScreen = ({ handleSubmit }: Props) => {
           />
           <Text style={styles.title}>Log in to Informed Medical</Text>
           <FormField
-            title="Username or Email"
-            value={form.email}
+            title="Username"
+            value={form.userName}
             handleChangeText={handleChangeEmail}
-            placeholder="Enter Username or Email"
+            placeholder="Enter Username "
             customClass={styles.formFieldMargin}
           />
           <FormField
@@ -68,9 +99,9 @@ const SignInScreen = ({ handleSubmit }: Props) => {
             />
             <CustomButton
               title="Sign in"
-              handlePress={handleSubmit}
+              handlePress={() => handleSubmit(form)}
               customClass={styles.signInButton}
-              isLoading={isSubmitting}
+              isLoading={loginLoading}
             />
           </View>
           <View style={styles.signUpContainer}>
