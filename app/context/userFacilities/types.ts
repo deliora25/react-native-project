@@ -5,50 +5,22 @@ import {
   RESET,
   SET_FACILITIES_AND_SELECTED_FACILITY,
 } from "./constants";
-import {
-  AutoIsoSetting,
-  Facility,
-  FacilityFeature,
-} from "@/app/types/facility";
+import { AutoIsoSetting, Facility, FacilityFeature } from "@/app/types/facility";
 
 export type State = {
   errorMessageGetFacility: string | null;
   facilities: UserFacility[];
   facilitySummaryReportFeature: boolean;
-  handleAddAutoISOSetting: ({
-    isoSetting,
-  }: {
-    isoSetting: AutoIsoSetting;
-  }) => void;
+  handleAddAutoISOSetting: ({ isoSetting }: { isoSetting: AutoIsoSetting }) => void;
   handleSetFacilities: ({ facilities }: { facilities: UserFacility[] }) => void;
   handleSetFacilityFeatures: ({ data }: { data: FacilityFeature }) => void;
   handleSetFacilityIsWrittenAgreementAccepted: (value: boolean) => void;
   handleSetSelectedFacility: ({ facility }: { facility: UserFacility }) => void;
-  handleSetSelectedFacilityShowArbitrationCount: ({
-    value,
-  }: {
-    value: boolean;
-  }) => void;
-  handleSetSelectedFacilityShowMenuButtons: ({
-    value,
-  }: {
-    value: boolean;
-  }) => void;
-  handleSetSelectedFacilityShowReportsCount: ({
-    value,
-  }: {
-    value: boolean;
-  }) => void;
-  handleSetSelectedFacilityShowTitlePage: ({
-    value,
-  }: {
-    value: boolean;
-  }) => void;
-  handleUpdateAutoISOSetting: ({
-    isoSetting,
-  }: {
-    isoSetting: AutoIsoSetting;
-  }) => void;
+  handleSetSelectedFacilityShowArbitrationCount: ({ value }: { value: boolean }) => void;
+  handleSetSelectedFacilityShowMenuButtons: ({ value }: { value: boolean }) => void;
+  handleSetSelectedFacilityShowReportsCount: ({ value }: { value: boolean }) => void;
+  handleSetSelectedFacilityShowTitlePage: ({ value }: { value: boolean }) => void;
+  handleUpdateAutoISOSetting: ({ isoSetting }: { isoSetting: AutoIsoSetting }) => void;
   initialized: boolean;
   isFacilityActive: boolean;
   isFacilityCancelledSuspended: boolean;

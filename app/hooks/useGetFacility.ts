@@ -5,6 +5,7 @@ import { RequestExceptionError } from "../types/common/api";
 
 const GENERAL_ERROR_MESSAGE = "An error occurred while fetching facility data.";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface FacilityData extends Facility {}
 
 const useGetFacility = () => {
@@ -13,22 +14,12 @@ const useGetFacility = () => {
   const [facility, setFacility] = useState<FacilityData | undefined>();
   const [isCalled, setIsCalled] = useState<boolean>(false);
 
-  const handleSetAccountManagerName = ({
-    accountManagerName,
-  }: {
-    accountManagerName: string;
-  }) => {
+  const handleSetAccountManagerName = ({ accountManagerName }: { accountManagerName: string }) => {
     if (!facility) return;
     setFacility({ ...facility, accountManagerName });
   };
 
-  const handleSetTrainingDetails = ({
-    date,
-    name,
-  }: {
-    date: string;
-    name: string;
-  }) => {
+  const handleSetTrainingDetails = ({ date, name }: { date: string; name: string }) => {
     if (!facility) return;
     setFacility({ ...facility, trainorDate: date, trainorName: name });
   };
@@ -43,46 +34,26 @@ const useGetFacility = () => {
     setFacility({ ...facility, pendingSubscriptionTerm: value });
   };
 
-  const handleSetSelectedFacilityShowReportsCount = ({
-    value,
-  }: {
-    value: boolean;
-  }) => {
+  const handleSetSelectedFacilityShowReportsCount = ({ value }: { value: boolean }) => {
     if (!facility) return;
     setFacility({ ...facility, showReportsCount: value });
   };
-  const handleSetSelectedFacilityShowArbitrationCount = ({
-    value,
-  }: {
-    value: boolean;
-  }) => {
+  const handleSetSelectedFacilityShowArbitrationCount = ({ value }: { value: boolean }) => {
     if (!facility) return;
     setFacility({ ...facility, showArbitrationCount: value });
   };
 
-  const handleSetSelectedFacilityShowMenuButtons = ({
-    value,
-  }: {
-    value: boolean;
-  }) => {
+  const handleSetSelectedFacilityShowMenuButtons = ({ value }: { value: boolean }) => {
     if (!facility) return;
     setFacility({ ...facility, showMenuButtons: value });
   };
 
-  const handleSetSelectedFacilityShowTitlePage = ({
-    value,
-  }: {
-    value: boolean;
-  }) => {
+  const handleSetSelectedFacilityShowTitlePage = ({ value }: { value: boolean }) => {
     if (!facility) return;
     setFacility({ ...facility, showTitlePage: value });
   };
 
-  const handleUpdateAutoISOSetting = ({
-    isoSetting,
-  }: {
-    isoSetting: AutoIsoSetting;
-  }) => {
+  const handleUpdateAutoISOSetting = ({ isoSetting }: { isoSetting: AutoIsoSetting }) => {
     if (!facility) return;
     const { autoISOSettings = [] } = facility || {};
 
@@ -96,11 +67,7 @@ const useGetFacility = () => {
     setFacility({ ...facility, autoISOSettings: updatedAutoIsoSettings });
   };
 
-  const handleAddAutoISOSetting = ({
-    isoSetting,
-  }: {
-    isoSetting: AutoIsoSetting;
-  }) => {
+  const handleAddAutoISOSetting = ({ isoSetting }: { isoSetting: AutoIsoSetting }) => {
     if (!facility) return;
     const { autoISOSettings = [] } = facility || {};
 
@@ -114,14 +81,10 @@ const useGetFacility = () => {
 
     const { facilityFeatures = [] } = facility || {};
     const { canCreate, canDelete, canEdit, canView } = data || {};
-    const existingFeature = facilityFeatures.find(
-      (x) => x.featureId === data.featureId
-    );
+    const existingFeature = facilityFeatures.find((x) => x.featureId === data.featureId);
     if (existingFeature) {
       const updatedFacilityFeatures = facilityFeatures.map((x) =>
-        x.featureId === data.featureId
-          ? { ...x, canCreate, canDelete, canEdit, canView }
-          : x
+        x.featureId === data.featureId ? { ...x, canCreate, canDelete, canEdit, canView } : x
       );
 
       setFacility({ ...facility, facilityFeatures: updatedFacilityFeatures });
@@ -131,11 +94,7 @@ const useGetFacility = () => {
     }
   };
 
-  const handleSetFacilityBillingEmail = ({
-    billingEmail,
-  }: {
-    billingEmail: string;
-  }) => {
+  const handleSetFacilityBillingEmail = ({ billingEmail }: { billingEmail: string }) => {
     if (!facility) return;
     const { facilityBilling } = facility || {};
     setFacility({

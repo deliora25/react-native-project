@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import CustomCard from "../Card";
 import { FacilityTypeLibrary } from "@/app/constants/facility";
@@ -10,11 +10,7 @@ type Props = {
   clientStaffDocumentLibraryLabel: string;
 };
 
-const DocumentLibraryCard = ({
-  onCardPress,
-  route,
-  clientStaffDocumentLibraryLabel,
-}: Props) => {
+const DocumentLibraryCard = ({ onCardPress, route, clientStaffDocumentLibraryLabel }: Props) => {
   const { canViewAllLibrary } = usePermissionDocumentLibrary();
 
   return (
@@ -23,29 +19,17 @@ const DocumentLibraryCard = ({
         <>
           <CustomCard
             title="SNF Library"
-            onPress={() =>
-              onCardPress(
-                `${route}?facilityTypeLibrary=${FacilityTypeLibrary.SNF}`
-              )
-            }
+            onPress={() => onCardPress(`${route}?facilityTypeLibrary=${FacilityTypeLibrary.SNF}`)}
           />
           <CustomCard
             title="ANF Library"
-            onPress={() =>
-              onCardPress(
-                `${route}?facilityTypeLibrary=${FacilityTypeLibrary.ALF}`
-              )
-            }
+            onPress={() => onCardPress(`${route}?facilityTypeLibrary=${FacilityTypeLibrary.ALF}`)}
           />
         </>
       ) : (
         <CustomCard
           title={clientStaffDocumentLibraryLabel}
-          onPress={() =>
-            onCardPress(
-              `${route}?facilityTypeLibrary=${FacilityTypeLibrary.SNF}`
-            )
-          }
+          onPress={() => onCardPress(`${route}?facilityTypeLibrary=${FacilityTypeLibrary.SNF}`)}
         />
       )}
     </View>

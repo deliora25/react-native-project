@@ -14,11 +14,10 @@ const usePermissionDocumentLibrary = () => {
   const userFacilities = useUserFacilities();
   const { selectedFacilityData } = userFacilities || {};
 
-  const canAddFacilityDocumentLibrary: boolean =
-    hasPermissionAddFacilityDocumentLibrary({
-      user,
-      facility: selectedFacilityData,
-    });
+  const canAddFacilityDocumentLibrary: boolean = hasPermissionAddFacilityDocumentLibrary({
+    user,
+    facility: selectedFacilityData,
+  });
 
   const canViewAllLibrary: boolean = hasPermissionViewAllLibrary({
     user,

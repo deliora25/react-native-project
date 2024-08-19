@@ -1,6 +1,6 @@
-import useUserFacilities from '../useUserFacilities';
-import { hasPermissionViewAutoISOReports } from '../../utils/permissions';
-import useAuth from '../useAuth';
+import useUserFacilities from "../useUserFacilities";
+import { hasPermissionViewAutoISOReports } from "../../utils/permissions";
+import useAuth from "../useAuth";
 
 const usePermissionAutoIso = () => {
   const auth = useAuth();

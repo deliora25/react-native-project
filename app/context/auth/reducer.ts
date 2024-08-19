@@ -39,14 +39,12 @@ const authReducer = (state: State, action: Action) => {
       let menuLinks: MenuLink[] = [];
 
       if (userMenuLinks && Array.isArray(userMenuLinks)) {
-        menuLinks = (userMenuLinks as UserPermissionMenuLinksDto[]).filter(
-          (x) => {
-            const { canView } = x || {};
+        menuLinks = (userMenuLinks as UserPermissionMenuLinksDto[]).filter((x) => {
+          const { canView } = x || {};
 
-            if (canView) return true;
-            return false;
-          }
-        );
+          if (canView) return true;
+          return false;
+        });
       }
 
       return {

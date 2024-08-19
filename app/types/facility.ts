@@ -4,6 +4,7 @@ import { TimezoneInfo } from "./model/timezone";
 import { AutoIsoType } from "@/app/constants/autoIso";
 import { FacilityTypeCode } from "@/app/constants/facility";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface FacilityFeature extends CustomPermissionDto {}
 
 export interface FacilityBilling {

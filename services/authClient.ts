@@ -1,10 +1,6 @@
+/* eslint-disable no-console */
 import axios from "axios";
-import {
-  getAccessToken,
-  getRefreshToken,
-  setTokens,
-  clearTokens,
-} from "./asyncStorage"; // Use AsyncStorage instead of localStorage
+import { getAccessToken, getRefreshToken, setTokens, clearTokens } from "./asyncStorage"; // Use AsyncStorage instead of localStorage
 import { BASE_URL } from "@/app/constants/api";
 
 // Create an Axios instance
@@ -71,10 +67,7 @@ authClient.interceptors.response.use(
           });
 
           if (res.status === 200) {
-            const {
-              access_token: accessToken,
-              refresh_token: newRefreshToken,
-            } = res.data || {};
+            const { access_token: accessToken, refresh_token: newRefreshToken } = res.data || {};
             await setTokens({
               access_token: accessToken,
               refresh_token: newRefreshToken,

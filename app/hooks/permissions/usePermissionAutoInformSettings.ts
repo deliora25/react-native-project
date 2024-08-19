@@ -1,6 +1,6 @@
-import useAuth from '../useAuth';
-import useUserFacilities from '../useUserFacilities';
-import { hasPermissionAutoInformSettings } from '../../utils/permissions';
+import useAuth from "../useAuth";
+import useUserFacilities from "../useUserFacilities";
+import { hasPermissionAutoInformSettings } from "../../utils/permissions";
 
 const usePermissionAutoInformSettings = () => {
   const { user } = useAuth();

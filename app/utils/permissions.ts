@@ -3,8 +3,7 @@ import { USER_TYPE } from "@/app/constants/userTypes";
 import { User } from "../types/model/user";
 import { Facility } from "../types/facility";
 
-const { BASIC_USER, MANAGER, ADMINISTRATOR, INFORMED_USER, INFORMED_ADMIN } =
-  USER_TYPE;
+const { MANAGER, ADMINISTRATOR, INFORMED_USER, INFORMED_ADMIN } = USER_TYPE;
 
 interface UserAndFacilityParams {
   user?: User | null;
@@ -38,11 +37,7 @@ export const isClientAdmin = ({ user }: { user?: User | null }) => {
   return false;
 };
 
-export const hasPermissionViewAllLibrary = ({
-  user,
-}: {
-  user: User | null | undefined;
-}) => {
+export const hasPermissionViewAllLibrary = ({ user }: { user: User | null | undefined }) => {
   return isInformedStaff({ user });
 };
 
@@ -67,9 +62,7 @@ export const hasPermissionViewAutoISOReports = ({
     let value = false;
     if (selectedFacilityData) {
       const { facilityFeatures } = selectedFacilityData || {};
-      const hasAutoISOReport = facilityFeatures.find(
-        (x) => x.featureId === FeatureId.AUTO_ISO
-      );
+      const hasAutoISOReport = facilityFeatures.find((x) => x.featureId === FeatureId.AUTO_ISO);
       if (hasAutoISOReport) {
         const { canView } = hasAutoISOReport || {};
         value = canView;
@@ -81,10 +74,7 @@ export const hasPermissionViewAutoISOReports = ({
   return false;
 };
 
-export const hasPermissionAutoInformSettings = ({
-  user,
-  facility,
-}: UserAndFacilityParams) => {
+export const hasPermissionAutoInformSettings = ({ user, facility }: UserAndFacilityParams) => {
   if (facility) {
     const { isWrittenAgreementAccepted } = facility || {};
 

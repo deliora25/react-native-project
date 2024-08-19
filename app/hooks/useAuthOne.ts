@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from "react";
-import _ from "lodash";
-import { getAccessToken, setTokens } from "@/services/asyncStorage";
+import { getAccessToken } from "@/services/asyncStorage";
 import useAuth from "./useAuth";
 
 export const useAuthOne = () => {
@@ -22,7 +22,7 @@ export const useAuthOne = () => {
 
           setInitialTokenLoaded(true);
         } catch (error) {
-          // Handle error here
+          console.error(error);
         }
       };
       loadInitialToken();

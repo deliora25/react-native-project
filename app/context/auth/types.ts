@@ -39,19 +39,9 @@ export type State = {
   setJustLogin: ({ value }: { value: boolean }) => void;
   setUser: ({ user }: { user: User }) => void;
   setUserName: ({ userName }: { userName: string }) => void;
-  signIn: ({
-    userName,
-    password,
-    code,
-    state,
-    successCallback,
-  }: SignInParams) => void;
+  signIn: ({ userName, password, code, state, successCallback }: SignInParams) => void;
   signOut: () => void;
-  handleSetIsAuthenticated: ({
-    isAuthenticated,
-  }: {
-    isAuthenticated: boolean;
-  }) => void;
+  handleSetIsAuthenticated: ({ isAuthenticated }: { isAuthenticated: boolean }) => void;
   userIsClientStaff?: boolean | null;
   userIsInformedStaff?: boolean | null;
   setLoadingUser: ({ loading }: { loading: boolean }) => void;

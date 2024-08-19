@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import React from "react";
 import { createContext, useReducer, FC, PropsWithChildren } from "react";
 import {
   ADD_USER,
@@ -29,12 +31,7 @@ import guestClient from "@/services/guestClient";
 
 export const Context = createContext(initialState);
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ProviderProps = {};
-
-export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
-  children,
-}) => {
+export const Provider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user } = state || {};
   const userIsClientStaff = isClientStaff({ user });
@@ -77,11 +74,7 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
     dispatch({ type: RESET_LOGIN_STATE });
   };
 
-  const handleSetIsAuthenticated = ({
-    isAuthenticated,
-  }: {
-    isAuthenticated: boolean;
-  }) => {
+  const handleSetIsAuthenticated = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     dispatch({ type: SET_IS_AUTHENTICATED, isAuthenticated });
   };
 
@@ -161,11 +154,7 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
       console.error(`An error occurred while trying to logout.`);
     } catch (e) {
       clearTokens();
-      console.error(
-        `An error occurred while trying to logout. exception ${JSON.stringify(
-          e
-        )}`
-      );
+      console.error(`An error occurred while trying to logout. exception ${JSON.stringify(e)}`);
     }
   };
 
@@ -185,15 +174,11 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
 
     try {
       if (code && state) {
-        console.log(`test 1`);
-        res = await guestClient.post(
-          `/${API_VERSION}/auth/token/pointclickcare`,
-          {
-            code,
-            state,
-            redirectUri,
-          }
-        );
+        res = await guestClient.post(`/${API_VERSION}/auth/token/pointclickcare`, {
+          code,
+          state,
+          redirectUri,
+        });
       } else {
         res = await guestClient.post(`/${API_VERSION}/auth/token/connect`, {
           userName,
@@ -203,18 +188,12 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
       const { status, data } = res || {};
       if (status === 200) {
         if (data) {
-          const {
-            access_Token: accessToken,
-            refresh_Token: refreshToken,
-            isMFAEnabled,
-          } = data;
+          const { access_Token: accessToken, refresh_Token: refreshToken, isMFAEnabled } = data;
 
           if (isMFAEnabled) {
-            if (loginSuccessWithMFA)
-              return loginSuccessWithMFA(accessToken, refreshToken);
+            if (loginSuccessWithMFA) return loginSuccessWithMFA(accessToken, refreshToken);
             logInError({
-              errorMessage:
-                "An error occurred while trying to login. No MFA implementation.",
+              errorMessage: "An error occurred while trying to login. No MFA implementation.",
             });
             return null;
           }

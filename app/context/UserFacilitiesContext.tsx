@@ -1,11 +1,5 @@
-import {
-  createContext,
-  useReducer,
-  useEffect,
-  PropsWithChildren,
-  FC,
-  useMemo,
-} from "react";
+import React from "react";
+import { createContext, useReducer, useEffect, PropsWithChildren, FC, useMemo } from "react";
 import { isInformedStaff } from "../utils/permissions";
 import { State, Action } from "./userFacilities/types";
 import { FACILITY_ACCOUNT_STATUS } from "@/app/constants/facility";
@@ -21,8 +15,7 @@ import useGetFacility from "../hooks/useGetFacility";
 import { UserFacility } from "../types/model/user";
 import { FacilityFeature } from "../types/facility";
 
-const { SUSPEND_STATUS, CANCEL_STATUS, ACTIVE_STATUS } =
-  FACILITY_ACCOUNT_STATUS;
+const { SUSPEND_STATUS, CANCEL_STATUS, ACTIVE_STATUS } = FACILITY_ACCOUNT_STATUS;
 
 const initialState: State = {
   errorMessageGetFacility: "",
@@ -91,12 +84,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ProviderProps = {};
-
-export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
-  children,
-}) => {
+export const Provider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { facilities, selectedFacility, initialized } = state;
   const {
@@ -116,11 +104,7 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
   const { facilityFeatures } = selectedFacilityData || {};
 
   const { loadingUser, user } = useAuth();
-  const {
-    defaultFacilityId,
-    facilities: userFacilities,
-    id: userId,
-  } = user || {};
+  const { defaultFacilityId, facilities: userFacilities, id: userId } = user || {};
 
   const { accountStatus } = selectedFacilityData || {};
   const isFacilityCancelledSuspended = accountStatus
@@ -129,19 +113,11 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
   const isFacilityActive = ACTIVE_STATUS === accountStatus;
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const handleSetFacilities = ({
-    facilities,
-  }: {
-    facilities: UserFacility[];
-  }) => {
+  const handleSetFacilities = ({ facilities }: { facilities: UserFacility[] }) => {
     dispatch({ type: SET_FACILITIES, facilities });
   };
 
-  const handleSetSelectedFacility = ({
-    facility,
-  }: {
-    facility: UserFacility;
-  }) => {
+  const handleSetSelectedFacility = ({ facility }: { facility: UserFacility }) => {
     dispatch({ type: SET_SELECTED_FACILITY, selectedFacility: facility });
     const { id } = facility || {};
 
@@ -185,14 +161,8 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
 
   useEffect(() => {
     if (!initialized) {
-      if (
-        defaultFacilityId &&
-        userFacilities &&
-        Array.isArray(userFacilities)
-      ) {
-        const defaultSelectedFacility = userFacilities.find(
-          (x) => x.id === defaultFacilityId
-        );
+      if (defaultFacilityId && userFacilities && Array.isArray(userFacilities)) {
+        const defaultSelectedFacility = userFacilities.find((x) => x.id === defaultFacilityId);
         if (defaultSelectedFacility) {
           handleSetFacilitiesAndSelectedFacility({
             facility: defaultSelectedFacility,
@@ -212,7 +182,6 @@ export const Provider: FC<PropsWithChildren<ProviderProps>> = ({
         sendRequestGetFacility({ facilityId: defaultFacilityId });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFacilities, defaultFacilityId, initialized, user]);
 
   const facilitySummaryReportFeature = useMemo(() => {

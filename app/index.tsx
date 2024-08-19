@@ -17,7 +17,7 @@ export default function Home() {
   }
 
   if (isAuthenticated) {
-    return <Redirect href="/(tabs)/home" />;
+    return <Redirect href="/(main)/(tabs)/home" />;
   }
 
   return <Redirect href="/landingScreen" />;

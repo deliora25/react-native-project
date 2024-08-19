@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-color-literals */
 import React, { useState } from "react";
 import {
   View,
@@ -60,38 +61,38 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 8,
   },
-  title: {
-    fontSize: 16,
-    color: "#f5f5f5",
-    paddingBottom: 2,
-    paddingLeft: 4,
-  },
-  inputContainer: {
-    borderWidth: 2,
-    borderColor: "#cfcfcf",
-    width: "100%",
-    height: 64,
-    paddingHorizontal: 16,
-    backgroundColor: "#1a1a1a",
-    borderRadius: 16,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  textInput: {
-    flex: 1,
-    color: "#ffffff",
-    fontSize: 16,
+  helperText: {
+    color: "orange",
+    fontSize: 12,
+    fontStyle: "italic",
+    paddingLeft: 8,
+    paddingTop: 2,
   },
   icon: {
     height: 24,
     width: 24,
   },
-  helperText: {
-    color: "orange",
-    fontStyle: "italic",
-    fontSize: 12,
-    paddingLeft: 8,
-    paddingTop: 2,
+  inputContainer: {
+    alignItems: "center",
+    backgroundColor: "#1a1a1a",
+    borderColor: "#cfcfcf",
+    borderRadius: 16,
+    borderWidth: 2,
+    flexDirection: "row",
+    height: 64,
+    paddingHorizontal: 16,
+    width: "100%",
+  },
+  textInput: {
+    color: "#ffffff",
+    flex: 1,
+    fontSize: 16,
+  },
+  title: {
+    color: "#f5f5f5",
+    fontSize: 16,
+    paddingBottom: 2,
+    paddingLeft: 4,
   },
 });
 
