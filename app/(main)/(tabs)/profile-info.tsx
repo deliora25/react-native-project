@@ -10,7 +10,7 @@ const Profile = () => {
 
   const handleClickLogout = () => {
     signOut();
-    router.navigate("/sign-in");
+    router.replace("/sign-in");
   };
 
   return (

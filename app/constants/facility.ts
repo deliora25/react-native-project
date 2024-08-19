@@ -10,6 +10,11 @@ export enum FacilityTypeCode {
   ALF = "ALF",
 }
 
+export enum FacilityTypeLibraryString {
+  SNF = "1",
+  ALF = "2",
+}
+
 export const FACILITY_ACCOUNT_STATUS = {
   INACTIVE_STATUS: 0,
   ACTIVE_STATUS: 1,

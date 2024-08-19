@@ -1,13 +1,8 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import Config from "react-native-config";
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { SafeAreaView, ScrollView, View, Image, Text, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";
 import { FormValues } from "./types";
 import { useAuth } from "../hooks";
@@ -22,7 +17,7 @@ const SignInScreen = () => {
   });
 
   const auth = useAuth();
-  const { loginError: errorMessage, loginLoading, signIn } = auth || {};
+  const { loginError: errorMessage, loginLoading, signIn, resetLoginState } = auth || {};
 
   const baseUrlAndPath = `${Config.BASE_URL}${Config.PATH}`;
 
@@ -31,6 +26,7 @@ const SignInScreen = () => {
   };
 
   // TODO: lacking authentication function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loginSuccessWithMFA = (accessToken: string, refreshToken: string) => {
     console.log("loginSuccess");
   };
@@ -58,6 +54,10 @@ const SignInScreen = () => {
   const handleCancelClick = () => {
     router.push("/");
   };
+
+  useEffect(() => {
+    resetLoginState();
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -100,9 +100,9 @@ const SignInScreen = () => {
             />
           </View>
           <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Don't have an account?</Text>
+            <Text style={styles.signUpText}>Don&apos;t have an account?</Text>
             <Link href="/sign-up" style={styles.signUpLink}>
-              Sign Up
+              <Text> Sign Up</Text>
             </Link>
           </View>
         </View>
@@ -112,35 +112,11 @@ const SignInScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    backgroundColor: "gray",
-    height: "100%",
-  },
-  container: {
-    width: "100%",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 40,
-    marginVertical: 24,
-    minHeight: 150,
-  },
-  logo: {
-    width: 115,
-    height: 35,
-  },
-  title: {
-    fontSize: 20,
-    color: "#ffffff",
-    paddingVertical: 10,
-  },
-  formFieldMargin: {
-    marginTop: 28,
-  },
   buttonContainer: {
-    marginVertical: 24,
     alignItems: "center",
-    justifyContent: "center",
     flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 24,
     width: "100%",
   },
   cancelButton: {
@@ -148,24 +124,48 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginTop: 28,
   },
+  container: {
+    justifyContent: "center",
+    marginVertical: 24,
+    minHeight: 150,
+    paddingHorizontal: 16,
+    paddingVertical: 40,
+    width: "100%",
+  },
+  formFieldMargin: {
+    marginTop: 28,
+  },
+  logo: {
+    height: 35,
+    width: 115,
+  },
+  safeAreaView: {
+    backgroundColor: "gray",
+    height: "100%",
+  },
   signInButton: {
     backgroundColor: "#3b82f6",
     marginTop: 28,
   },
   signUpContainer: {
-    justifyContent: "center",
-    paddingTop: 20,
     flexDirection: "row",
+    justifyContent: "center",
     marginHorizontal: 4,
-  },
-  signUpText: {
-    fontSize: 18,
-    color: "#d1d5db",
+    paddingTop: 20,
   },
   signUpLink: {
-    fontSize: 18,
-
     color: "#3b82f6",
+
+    fontSize: 18,
+  },
+  signUpText: {
+    color: "#d1d5db",
+    fontSize: 18,
+  },
+  title: {
+    color: "#ffffff",
+    fontSize: 20,
+    paddingVertical: 10,
   },
 });
 

@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
 
 const Home = () => {
   const auth = useAuth();
+
   const { menuLinks, user, getUser, loadingUser } = auth || {};
+
   const { firstName } = user || {};
   const { selectedFacilityData } = useUserFacilities();
   const { facilityTypeCode } = selectedFacilityData || {};

@@ -1,28 +1,52 @@
-import { View, FlatList, Text } from "react-native";
-import React, { memo, useEffect, useState } from "react";
+import { View, FlatList } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "expo-router";
-import { LanguageValue } from "@/app/constants/language";
-import { FacilityTypeLibrary } from "@/app/constants";
-import { useDocumentLibrary } from "@/app/hooks";
+import { useAuth, useDocumentLibrary, useQuery, useUserFacilities } from "@/app/hooks";
+import {
+  getFacilityTypeLibrary,
+  getLanguageFilterIdFromQueryStringWithDefault,
+} from "@/app/utils/documentLibrary";
 
 const DocumentLibraryPage = () => {
+  const auth = useAuth();
+  const { userIsClientStaff, userIsInformedStaff } = auth || {};
+
   //TODO: search function
   const [searchText] = useState("");
   const { documentLibrary, handleGetDocumentLibrary, loading } = useDocumentLibrary();
+  const userFacilities = useUserFacilities();
+  const { selectedFacilityData } = userFacilities || {};
+  const { facilityTypeCode } = selectedFacilityData || {};
+  const query = useQuery();
+
+  const facilityTypeLibraryQuery = query.get("facilityTypeLibrary");
+  const languageQ = query.get("language");
+
+  const facilityTypeLibrary = useMemo(() => {
+    const newFacilityTypeLibrary = getFacilityTypeLibrary({
+      userIsInformedStaff,
+      userIsClientStaff,
+      facilityTypeLibraryQuery,
+      facilityTypeCode,
+    });
+    return newFacilityTypeLibrary;
+  }, [facilityTypeLibraryQuery, facilityTypeCode, userIsClientStaff, userIsInformedStaff]);
+
+  const languageFilterId = getLanguageFilterIdFromQueryStringWithDefault(languageQ);
 
   const refetchLibrary = async () => {
     handleGetDocumentLibrary({
       formName: searchText,
-      language: LanguageValue.ENGLISH,
-      facilityTypeLibrary: FacilityTypeLibrary.SNF,
+      language: languageFilterId,
+      facilityTypeLibrary,
     });
   };
 
   useEffect(() => {
     handleGetDocumentLibrary({
       formName: searchText,
-      language: LanguageValue.ENGLISH,
-      facilityTypeLibrary: FacilityTypeLibrary.SNF,
+      language: languageFilterId,
+      facilityTypeLibrary,
     });
   }, []);
 
@@ -41,8 +65,10 @@ const DocumentLibraryPage = () => {
             <View>
               <Link
                 href={{
-                  pathname: pathname,
-                  params: { documentLibrary: JSON.stringify(selectedDocument) },
+                  pathname: pathname as "/document-library",
+                  params: {
+                    documentLibrary: JSON.stringify(selectedDocument),
+                  },
                 }}
               >
                 {name}
@@ -52,16 +78,9 @@ const DocumentLibraryPage = () => {
         }}
         onRefresh={refetchLibrary}
         refreshing={loading}
-        ListHeaderComponent={() => {
-          return (
-            <View>
-              <Text>Header</Text>
-            </View>
-          );
-        }}
       />
     </View>
   );
 };
 
-export default memo(DocumentLibraryPage);
+export default DocumentLibraryPage;

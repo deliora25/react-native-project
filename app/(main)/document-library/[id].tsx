@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { View, Text } from "react-native";
-import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import React, { useEffect } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { DocumentLibrary } from "@/app/types";
 
 //TODO: css and function
@@ -9,6 +9,7 @@ import { DocumentLibrary } from "@/app/types";
 const DocumentDetail = () => {
   const searchParams = useLocalSearchParams();
   const { id, documentLibrary } = searchParams;
+  const navigation = useNavigation();
 
   // Safely parse the documentLibrary and handle potential parsing errors
   let parsedDocumentLibrary: DocumentLibrary | null = null;
@@ -18,6 +19,15 @@ const DocumentDetail = () => {
   } catch (error) {
     console.error("Failed to parse documentLibrary:", error);
   }
+
+  useEffect(() => {
+    if (parsedDocumentLibrary) {
+      // Set the header title dynamically
+      navigation.setOptions({
+        headerTitle: parsedDocumentLibrary.name,
+      });
+    }
+  }, [parsedDocumentLibrary]);
 
   return (
     <View>
