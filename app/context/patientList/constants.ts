@@ -1,0 +1,1 @@
+export const SET_PATIENT_LIST = "SET_PATIENT_LIST";

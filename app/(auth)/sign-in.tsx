@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-color-literals */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import Config from "react-native-config";
@@ -26,8 +26,8 @@ const SignInScreen = () => {
   };
 
   // TODO: lacking authentication function
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const loginSuccessWithMFA = (accessToken: string, refreshToken: string) => {
+
+  const loginSuccessWithMFA = (_accessToken: string, _refreshToken: string) => {
     console.log("loginSuccess");
   };
 

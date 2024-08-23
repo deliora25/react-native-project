@@ -3,6 +3,8 @@ import { Stack } from "expo-router";
 import { Provider as AuthProvider } from "./context/AuthContext";
 import { Provider as UserFacilitiesProvider } from "./context/UserFacilitiesContext";
 import { Provider as DocumentLibraryProvider } from "./context/DocumentLibraryContext";
+import { Provider as PatientListProvider } from "./context/PatientListContext";
+import { Provider as PatientViewProvider } from "./context/PatientViewContext";
 
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { useAuth } from "./hooks";
@@ -36,7 +38,11 @@ export default function RootLayout() {
     <AuthProvider>
       <UserFacilitiesProvider>
         <DocumentLibraryProvider>
-          <AuthStack />
+          <PatientListProvider>
+            <PatientViewProvider>
+              <AuthStack />
+            </PatientViewProvider>
+          </PatientListProvider>
         </DocumentLibraryProvider>
       </UserFacilitiesProvider>
     </AuthProvider>

@@ -23,7 +23,7 @@ const MainLayout = () => {
         options={{ headerShown: false, headerTitle: "Document Library" }}
       />
       <Stack.Screen name="generate-report/index" options={{ headerTitle: "Generate Report" }} />
-      <Stack.Screen name="patient/[id]" options={{ headerTitle: "Generate Report" }} />
+      <Stack.Screen name="patient" options={{ headerShown: false }} />
       <Stack.Screen name="report-history/index" options={{ headerTitle: "Report History" }} />
       <Stack.Screen
         name="auto-inform-settings/index"

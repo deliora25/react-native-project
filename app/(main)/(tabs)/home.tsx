@@ -1,10 +1,8 @@
-/* eslint-disable react-native/no-color-literals */
 import { View, Text, FlatList, Image, StyleSheet, RefreshControl } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { Href, router } from "expo-router";
 import { FacilityTypeCode } from "@/app/constants";
-
 import images from "../../constants/images";
 import { useAuth, useUserFacilities } from "../../hooks";
 import { usePermissionAutoInformSettings, usePermissionAutoIso } from "../../hooks/permissions";

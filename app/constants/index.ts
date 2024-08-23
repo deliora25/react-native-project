@@ -8,3 +8,5 @@ export * from "./autoIso";
 export * from "./facility";
 export * from "./jobTitles";
 export * from "./userTypes";
+export * from "./patient";
+export * from "./documentLibrary";

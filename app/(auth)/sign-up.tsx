@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-color-literals */
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Image, Text, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";

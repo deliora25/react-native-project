@@ -21,11 +21,17 @@ module.exports = {
   },
   plugins: ["react", "react-native", "@typescript-eslint", "prettier"],
   rules: {
-    "no-color-literals": "off",
+    "react-native/no-color-literals": "off",
     "react/prop-types": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off", // Optional, depending on your strictness
-    "no-console": "error",
+    "@typescript-eslint/no-explicit-any": "error", // Optional, depending on your strictness
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector: 'CallExpression[callee.object.name="console"][callee.property.name="log"]',
+        message: "Unexpected console.log statement.",
+      },
+    ],
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
