@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { SafeAreaView, ScrollView, View, Image, Text, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";
-import { images } from "@/constants";
-import FormField from "@/components/FormField";
-import CustomButton from "@/components/CustomButton";
+import images from "../constants/images";
+import FormField from "../components/FormField";
+import CustomButton from "../components/CustomButton";
 
 interface Props {
   handleSubmit: () => void;
 }
 
 const SignUpScreen = ({ handleSubmit }: Props) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const [form, setForm] = useState({
     userName: "",
     email: "",
@@ -88,7 +81,7 @@ const SignUpScreen = ({ handleSubmit }: Props) => {
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Already have an account?</Text>
             <Link href="/sign-in" style={styles.signUpLink}>
-              Sign In
+              <Text> Sign In</Text>
             </Link>
           </View>
         </View>
@@ -98,35 +91,11 @@ const SignUpScreen = ({ handleSubmit }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    backgroundColor: "gray",
-    height: "100%",
-  },
-  container: {
-    width: "100%",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 40,
-    marginVertical: 24,
-    minHeight: 150,
-  },
-  logo: {
-    width: 115,
-    height: 35,
-  },
-  title: {
-    fontSize: 20,
-    color: "#ffffff",
-    paddingVertical: 10,
-  },
-  formFieldMargin: {
-    marginTop: 28,
-  },
   buttonContainer: {
-    marginVertical: 24,
     alignItems: "center",
-    justifyContent: "center",
     flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 24,
     width: "100%",
   },
   cancelButton: {
@@ -134,24 +103,48 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginTop: 28,
   },
+  container: {
+    justifyContent: "center",
+    marginVertical: 24,
+    minHeight: 150,
+    paddingHorizontal: 16,
+    paddingVertical: 40,
+    width: "100%",
+  },
+  formFieldMargin: {
+    marginTop: 28,
+  },
+  logo: {
+    height: 35,
+    width: 115,
+  },
+  safeAreaView: {
+    backgroundColor: "gray",
+    height: "100%",
+  },
   signInButton: {
     backgroundColor: "#3b82f6",
     marginTop: 28,
   },
   signUpContainer: {
-    justifyContent: "center",
-    paddingTop: 20,
     flexDirection: "row",
+    justifyContent: "center",
     marginHorizontal: 4,
-  },
-  signUpText: {
-    fontSize: 18,
-    color: "#d1d5db",
+    paddingTop: 20,
   },
   signUpLink: {
-    fontSize: 18,
-
     color: "#3b82f6",
+
+    fontSize: 18,
+  },
+  signUpText: {
+    color: "#d1d5db",
+    fontSize: 18,
+  },
+  title: {
+    color: "#ffffff",
+    fontSize: 20,
+    paddingVertical: 10,
   },
 });
 
